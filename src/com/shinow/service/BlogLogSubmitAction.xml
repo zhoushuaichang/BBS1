@@ -6,5 +6,4 @@
 			<result name="success">/edit.jsp</result>
 		</action>
 	</package>
- 
 </struts>
