@@ -1,0 +1,332 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>blog首页</title>
+<link href="style/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script>
+	$(function() {
+
+		//导航鼠标悬浮
+		$("#mainMenu a").mouseover(function() {
+			var $thisA = $(this);
+			$("#menuMasker").animate({
+				left : ($(this).offset().left - 258)
+			}, 500, function() {
+				$(".over").removeClass();
+				$thisA.addClass("over");
+			});
+		});
+
+		//导航向左滚动
+		$("#menuLeft").click(function() {
+			if ($("#menuMasker").position().left > 50) {
+				$("#menuMasker").animate({
+					left : ($("#menuMasker").position().left - 73)
+				}, 500, function() {
+					var $prevA = $(".over").parent().prev().find("a");
+					$(".over").removeClass();
+					$prevA.addClass("over");
+				});
+			}
+		});
+
+		//导航向右滚动
+		$("#menuRight").click(function() {
+			if ($("#menuMasker").position().left < 340) {
+				$("#menuMasker").animate({
+					left : ($("#menuMasker").position().left + 73)
+				}, 500, function() {
+					var $prevA = $(".over").parent().next().find("a");
+					$(".over").removeClass();
+					$prevA.addClass("over");
+				});
+			}
+		});
+
+		//搜索菜单
+		$sear = false;
+		$("#search").mouseover(function() {
+			if ($sear) {
+				$sear = false;
+				$("#searchSpan").slideUp(401);
+			} else {
+				$sear = true;
+				$("#searchSpan").slideDown(410);
+			}
+		});
+
+		//右侧菜单展开
+		$(".rightMenu").toggle(function() {
+			$(this).next().slideDown(500);
+			$(this).removeClass().addClass("rightMenu2");
+		}, function() {
+			$(this).next().slideUp(500);
+			$(this).removeClass().addClass("rightMenu");
+		});
+
+		//移除文章
+		$(".del").click(function() {
+			$(this).closest(".ListItem").fadeOut(800, function() {
+				$(this).closest(".ListItem").remove();
+			});
+		});
+	})
+</script>
+</head>
+
+<body>
+	<div id="header">
+		<div id="headerTop">
+			<img src="images/logo.gif" alt="启奥实训" />
+			<div id="searchBox">
+				<div id="searchSpan">
+					<input type="text" id="keys" /> <input type="button"
+						id="searchSub" value="搜索" />
+				</div>
+				<img id="search" src="images/search.gif" alt="搜索" />
+			</div>
+		</div>
+		<div id="mainMenu">
+			<img id="menuLeft" src="images/menuLeft.gif" alt="左滑动" /> <img
+				id="menuRight" src="images/menuRight.gif" alt="右滑动" /> <img
+				id="menuMasker" src="images/menuBlock.gif" alt="蒙" />
+			<ul>
+				<li><a href="index.html" class="over">首 页</a></li>
+				<li><a href="blogList.html">日 志</a></li>
+				<li><a href="photo.html">相 册</a></li>
+				<li><a href="friends.html">博 友</a></li>
+				<li><a href="about.html">关 于</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div id="left">
+		<div class="ListItem">
+			<div class="ListItemTop">
+				<span>Posted by admin in <img src="images/ico2.gif"
+					alt="文章分类" /> <a href="#" class="sort">美工培训</a> on <img
+					src="images/ico3.gif" alt="发布时间" /> 04 13th, 2010 |
+				</span> <img src="images/x.gif" class="del" alt="关闭文章" />
+			</div>
+			<div class="ListItemContent">
+				<h1>
+					<a href="blogShow.html" target="_blank">Dreamweaver
+						CS4中使用CSS3属性提示</a>
+				</h1>
+				<div class="content">在使用Dreamweaver CS4
+					编写css的时候,是否有想使用下css3的新特性呢?是否还在为某一个css3特性而去翻google呢?
+					现在出了专门为Dreamweaver而做的扩展 Dreamweaver Style
+					Sheets,下载它是需要登录到adobe官方网站的,如果你嫌麻烦,我这里贡献下链接地址:点击这里,需要注意的一点是:下载下来的扩展是需要Dreamweaver的扩展管理器进行安装的,所以你的Dreamweaver必须得是安装版的才行.
+				</div>
+				<div class="foot">
+					<span class="tag">标签：<a href="#">CSS</a></span> <a
+						href="blogShow.html" target="_blank" class="more">Read More</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="ListItem">
+			<div class="ListItemTop">
+				<span>Posted by admin in <img src="images/ico2.gif"
+					alt="文章分类" /> <a href="#" class="sort">美工培训</a> on <img
+					src="images/ico3.gif" alt="发布时间" /> 04 13th, 2010 |
+				</span> <img src="images/x.gif" class="del" alt="关闭文章" />
+			</div>
+			<div class="ListItemContent">
+				<h1>
+					<a href="blogShow.html" target="_blank">css 3.0 中文手册API</a>
+				</h1>
+				<div class="content">CSS 3.0 参考手册 (中文版) CSS 是 Cascading Style
+					Sheet 的缩写。译作「层叠样式表」。是用于(增强)控制网页样式并允许将样式信息与网页内容分离的一种标记性语言。手册难点
+					中文资料少，对英文翻译功底要求较高； 基础语法要求字斟句酌，避免产生歧义.</div>
+				<div class="foot">
+					<span class="tag">标签：<a href="#">CSS</a></span> <a
+						href="blogShow.html" target="_blank" class="more">Read More</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="ListItem">
+			<div class="ListItemTop">
+				<span>Posted by admin in <img src="images/ico2.gif"
+					alt="文章分类" /> <a href="#" class="sort">美工培训</a> on <img
+					src="images/ico3.gif" alt="发布时间" /> 04 13th, 2010 |
+				</span> <img src="images/x.gif" class="del" alt="关闭文章" />
+			</div>
+			<div class="ListItemContent">
+				<h1>
+					<a href="blogShow.html" target="_blank">再推荐一本css的书</a>
+				</h1>
+				<div class="content">
+					上上篇日志中我推荐了css禅意花园,想必大家都看到了其简介的语言与循序渐进的内容,这次再推荐一本,我下的是中文版pdf的电子书,大家可以上gougou.com上面去搜一下,注意挑中文版哦,这个书翻译的还不错,至少没有让人不知所云的词句.就是有一些概念,我们不那么叫而已.例如我们说”盒子模型”,而不是”框模型”.
+					看了这本书,你会更加的憎恶ie6了,因为其在讲述每个知识点的时候就穿插进了ie6对于此知识点是如何的表现的.这本书适合于知道css是什么以及怎么写的的同学,不是很高深,但全部看下来,你自己会有相当多的感悟.虽然话语有些教条,但不是中国那么刻板.此书有助于我们建立书写css时的技巧性语句.
+				</div>
+				<div class="foot">
+					<span class="tag">标签：<a href="#">CSS</a></span> <a
+						href="blogShow.html" target="_blank" class="more">Read More</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="ListItem">
+			<div class="ListItemTop">
+				<span>Posted by admin in <img src="images/ico2.gif"
+					alt="文章分类" /> <a href="#" class="sort">美工培训</a> on <img
+					src="images/ico3.gif" alt="发布时间" /> 04 13th, 2010 |
+				</span> <img src="images/x.gif" class="del" alt="关闭文章" />
+			</div>
+			<div class="ListItemContent">
+				<h1>
+					<a href="blogShow.html" target="_blank">登录KingCMS</a>
+				</h1>
+				<div class="content">
+					通过上一次的研究，我们的kingcms应该已经安装完毕了，为了便于我们研究，那些配置文件里面的内容我都保持的默认状态。这时可以看到，根目录下面多了一个文件夹：db，就是数据库文件夹。
+				</div>
+				<div class="foot">
+					<span class="tag">标签：<a href="#">CSS</a></span> <a
+						href="blogShow.html" target="_blank" class="more">Read More</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="pages">
+			<a href="#">首页</a> <a href="#">1</a> <a href="#">2</a> <a href="#">3</a>
+			<a href="#">4</a> <a href="#">5</a> <a href="#">末页</a>
+		</div>
+	</div>
+
+	<div id="right">
+		<div class="rightMenu">login</div>
+		<div class="rightNr">
+			<form id="myForm" method="post" action="">
+				<p>
+					<label>登录名：</label><input class="txt" type="text" id="userZh" />
+				</p>
+				<p>
+					<label>密 码：</label><input class="txt" type="text" id="userPw" />
+				</p>
+				<p>
+					<input type="button" id="subbut" value="登录" />
+				</p>
+			</form>
+		</div>
+
+		<div class="rightMenu">about us</div>
+		<div class="rightNr">
+			唐山市启奥职业培训学校即唐山启奥IT实训基地，依托知名的专业化软件公司，致力于高端IT人才的培养。建筑面积2000多平方米，具有强大的师资队伍和教学管理团队以及设备精良的实训环境，是唐山市高校大学生就业见习基地。
+		</div>
+
+		<div class="rightMenu">articles Category</div>
+		<div class="rightNr">
+			<ul>
+				<s:iterator value="">
+					<li>
+						<p class="reTag">
+							<s:a href="#" label="DOTNET" theme="xhtml"></s:a>
+						</p>
+					</li>
+				</s:iterator>
+				
+			</ul>
+		</div>
+
+		<div class="rightMenu">random posts</div>
+		<div class="rightNr">
+			<ul>
+				<li>
+					<p class="reName">
+						<a href="#">css 3.0 中文手册API</a>
+					</p>
+				</li>
+				<li>
+					<p class="reName">
+						<a href="#">CSS禅意花园中文版PDF电子书下载</a>
+					</p>
+				</li>
+				<li>
+					<p class="reName">
+						<a href="#">HTML5</a>
+					</p>
+				</li>
+			</ul>
+		</div>
+
+		<div class="rightMenu">recent comments</div>
+		<div class="rightNr">
+			<ul>
+				<li>
+					<p class="reName">
+						<a href="#">张三</a>
+					</p>
+					<p class="reNr">我来说点啥.</p>
+				</li>
+				<li>
+					<p class="reName">
+						<a href="#">李四</a>
+					</p>
+					<p class="reNr">我来说点啥.我来说点啥.</p>
+				</li>
+				<li>
+					<p class="reName">
+						<a href="#">王五</a>
+					</p>
+					<p class="reNr">我来说点啥.我来说点啥.我来说点啥.</p>
+				</li>
+				<li>
+					<p class="reName">
+						<a href="#">赵六</a>
+					</p>
+					<p class="reNr">我来说点啥.我来说点啥.我来说点啥.我来说点啥.</p>
+				</li>
+				<li>
+					<p class="reName">
+						<a href="#">冯七</a>
+					</p>
+					<p class="reNr">我来说点啥.我来说点啥.我来说点啥.我来说点啥.我来说点啥.</p>
+				</li>
+				<li>
+					<p class="reName">
+						<a href="#">马八</a>
+					</p>
+					<p class="reNr">我来说点啥.我来说点啥.我来说点啥.我来说点啥.我来说点啥.我来说点啥.</p>
+				</li>
+			</ul>
+		</div>
+
+		<strong class="rightListTitle">STUDENTS</strong>
+		<div class="rightList">
+			<ul>
+				<li><a href="#">张三</a> [唐山学院]</li>
+				<li><a href="#">李四</a> [煤炭医学院]</li>
+				<li><a href="#">王五</a> [河北理工]</li>
+				<li><a href="#">赵六</a> [煤炭医学院]</li>
+				<li><a href="#">冯七</a> [唐山学院]</li>
+				<li><a href="#">马八</a> [河北理工]</li>
+				<li><a href="#">西门庆</a> [师范学院]</li>
+			</ul>
+		</div>
+		<strong class="rightListTitle">ARCHIVE</strong>
+		<div class="rightList">
+			<ul>
+				<li><a href="#">2010.05</a> (5)</li>
+				<li><a href="#">2010.04</a> (4)</li>
+				<li><a href="#">2010.03</a> (3)</li>
+				<li><a href="#">2010.02</a> (2)</li>
+				<li><a href="#">2010.01</a> (1)</li>
+				<li><a href="#">2009.12</a> (0)</li>
+				<li><a href="#">2009.11</a> (1)</li>
+				<li><a href="#">2009.10</a> (2)</li>
+				<li><a href="#">2009.09</a> (3)</li>
+			</ul>
+		</div>
+	</div>
+
+	<div id="footer">&copy; Copyright 2010. All rights shinowIT.com</div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+package com.shinow.dao;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowCallbackHandler;
+import org.springframework.stereotype.Repository;
+
+import com.shinow.model.SchoolInfo;
+import com.shinow.model.UserInfo;
+
+@Repository
+public class UserInfoDAO {
+	@Resource
+	private JdbcTemplate jt;
+
+	public boolean userinset(UserInfo user) {
+		boolean result = false;
+
+		int a = jt.update("insert into user_info (schoolID,sexID,userName,userPass,userBir,problem,answer,nickName,pic,userAdd)values(?,?,?,?,?,?,?,?,?,?)",
+						new Object[] { user.getSchoolId(), user.getSexId(),
+								user.getUserName(), user.getUserPass(),
+								user.getUserBir(), user.getProblem(),
+								user.getAnswer(), user.getNickName(),
+								user.getPic(), user.getUserAdd() }, new int[] {
+								Types.INTEGER, Types.INTEGER, Types.VARCHAR,
+								Types.VARCHAR, Types.DATE, Types.VARCHAR,
+								Types.VARCHAR, Types.VARCHAR, Types.VARCHAR,
+								Types.VARCHAR });
+
+		if (a > 0) {
+			result = true;
+
+		}
+		return result;
+
+	}
+	public List<UserInfo> userqurey(){
+		final List<UserInfo> userlist=new ArrayList<UserInfo>();
+		jt.query("select userName,school_info.schoolName from user_info JOIN school_info on user_info.schoolID=school_info.schoolID",new RowCallbackHandler() {
+			UserInfo user=new UserInfo();
+			SchoolInfo school=new SchoolInfo();
+			@Override
+			public void processRow(ResultSet rs) throws SQLException {
+				user.setUserName(rs.getString("userName"));
+				school.setSchoolName(rs.getString("schoolName"));
+				user.setSchool(school);
+				userlist.add(user);
+					
+			}
+		});
+		return userlist;
+	}
+	public UserInfo querylogin(UserInfo user){
+		final UserInfo result=new UserInfo();;
+		String sql="select * from user_info where userName=? and userPass=?";
+		jt.query(sql, new Object[]{user.getUserName(),user.getUserPass()}, new int[]{Types.VARCHAR,Types.VARCHAR}, new RowCallbackHandler() {
+			
+			@Override
+			public void processRow(ResultSet rs) throws SQLException {
+				
+					result.setUserName(rs.getString("userName"));
+//					result.setUserPass(rs.getString("userPass"));
+					result.setUserID(rs.getInt("userID"));
+											
+				
+			}
+		});
+		return result;
+		
+		
+	}
+}

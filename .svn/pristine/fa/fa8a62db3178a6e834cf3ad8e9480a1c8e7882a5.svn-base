@@ -1,0 +1,9 @@
+#jdbcDriverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
+#jdbcUri=jdbc:sqlserver://localhost:1433;databaseName=bbs
+#jdbcUsername=sa
+#jdbcUserpass=shinow
+
+jdbc.driverClassName=com.mysql.jdbc.Driver
+jdbc.url=jdbc:mysql://10.2.25.10:3306/blogdb
+jdbc.username=root
+jdbc.password=shinow

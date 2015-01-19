@@ -1,0 +1,29 @@
+package com.shinow.test;
+
+import javax.annotation.Resource;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import com.shinow.dao.UserInfoDAO;
+import com.shinow.model.UserInfo;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations={"classpath:application-context.xml"})
+public class TestUserinset1 extends AbstractJUnit4SpringContextTests{
+@Resource
+private UserInfoDAO dao;
+ UserInfo user=new UserInfo();
+
+@Test
+public void test1(){
+	
+	user.setSchoolId(1);
+	user.setSexId(1);
+	user.setUserName("张三");
+	user.setUserPass("111");
+	user.setProblem("buzhidao");
+	dao.userinset(user);
+}
+}

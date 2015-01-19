@@ -1,0 +1,158 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
+	<%@taglib prefix="s" uri="/struts-tags" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>blog首页</title>
+<link href="style/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/myJs.js"></script>
+<script type="text/javascript" src="js/msgsubmit.js"></script>
+
+<script type="text/javascript" charset="utf-8" src="<%=request.getContextPath() %>/js/ue/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="<%=request.getContextPath() %>/js/ue/ueditor.all.min.js"> </script>
+    <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+    <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+    <script type="text/javascript" charset="utf-8" src="<%=request.getContextPath() %>/js/ue/lang/zh-cn/zh-cn.js"></script>
+
+
+</head>
+
+<body>
+	<div id="header">
+		<div id="headerTop">
+			<img src="images/logo.gif" alt="启奥实训" />
+			<div id="searchBox">
+				<div id="searchSpan">
+						<s:textfield id="keys"></s:textfield>
+						<s:submit id="searchSub" value="搜索" ></s:submit>
+					
+				</div>
+				<img id="search" src="images/search.gif" alt="搜索" />
+			</div>
+		</div>
+		<div id="mainMenu">
+			<img id="menuLeft" src="images/menuLeft.gif" alt="左滑动" /> <img
+				id="menuRight" src="images/menuRight.gif" alt="右滑动" /> <img
+				id="menuMasker" src="images/menuBlock.gif" style="left: 120px;"
+				alt="蒙" />
+			<ul>
+				<li><s:a href="index.jsp">首 页</s:a></li>
+				<li><s:a href="blogList.jsp" class="over">日 志</s:a></li>
+				<li><s:a href="photo.jsp">相 册</s:a></li>
+				<li><s:a href="friends.jsp">博 友</s:a></li>
+				<li><s:a href="about.jsp">关 于</s:a></li>
+			</ul>
+			<div id="tips" class="tips" >
+				<label>欢迎:</label><s:property value="#session.current_userinfo.userName"/><label>回来</label>
+				
+				<s:hidden id="crruentuser" value="#session.current_userinfo.userName" ></s:hidden>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+		<div class="ListItem">
+			<div class="ListItemTop">
+				<span>当前位置 > 日志 > 写日志</span>
+			</div>
+			<div class="contentBox">
+			<s:form action="blogSubmit" theme="simple" id="" method="post">
+				<p>
+				标题：<s:textfield name="blog.blogTitle" cssStyle="blogTitle"></s:textfield>
+				</p>
+				<p>
+				<label>标签：</label><s:select
+			name="blog.lableId" list="lableList" listKey="lableId"
+			listValue="lableName"></s:select>
+				<label>分类：</label><s:select
+			name="blog.blogClassId" list="classList" listKey="blogClassId"
+			listValue="blogClassName"></s:select>
+				</p>
+				<p>
+					
+					<script id="editor" type="text/plain" style="width:550px;height:500px;"></script>日志内容
+				</p>
+				<p style="text-align: center">
+					<input type="button" class="blogBut" value="提交" onclick="msgCheck()" />
+					<s:hidden id="msg" name="blog.blogMsg"></s:hidden>
+				</p>
+				</s:form>
+			</div>
+			
+		</div>
+	</div>
+
+	<div id="right">
+		<div class="rightMenu">about us</div>
+		<div class="rightNr">
+			唐山市启奥职业培训学校即唐山启奥IT实训基地，依托知名的专业化软件公司，致力于高端IT人才的培养。建筑面积2000多平方米，具有强大的师资队伍和教学管理团队以及设备精良的实训环境，是唐山市高校大学生就业见习基地。
+		</div>
+
+		<div class="rightMenu">articles Category</div>
+		<div class="rightNr">
+			<ul>
+				<li>
+					<p class="reTag">
+						<s:a href="#">DOTNET</s:a>
+					</p>
+				</li>
+				
+			</ul>
+		</div>
+
+		<div class="rightMenu">random posts</div>
+		<div class="rightNr">
+			<ul>
+				<li>
+					<p class="reName">
+						<s:a href="#">css 3.0 中文手册API</s:a>
+					</p>
+				</li>
+				<li>
+					<p class="reName">
+						<s:a href="#">CSS禅意花园中文版PDF电子书下载</s:a>
+					</p>
+				</li>
+				<li>
+					<p class="reName">
+						<s:a href="#">HTML5</s:a>
+					</p>
+				</li>
+			</ul>
+		</div>
+
+		<div class="rightMenu">recent comments</div>
+		<div class="rightNr">
+			<ul>
+				<li>
+					<p class="reName">	<s:a href="#">张三</s:a>		</p>
+					<p class="reNr">我来说点啥.</p>
+				</li>
+			</ul>
+		</div>
+
+		<strong class="rightListTitle">STUDENTS</strong>
+		<div class="rightList">
+			<ul>
+				<li><s:a href="#">张三</s:a> [唐山学院]</li>
+			</ul>
+		</div>
+		<strong class="rightListTitle">ARCHIVE</strong>
+		<div class="rightList">
+			<ul>
+				<li><s:a href="#">2010.05</s:a> (5)</li>
+			</ul>
+		</div>
+	</div>
+
+	<div id="footer">&copy; Copyright 2010. All rights shinowIT.com</div>
+</body>
+
+<script >
+var ue = UE.getEditor('editor');
+</script>
+
+</html>

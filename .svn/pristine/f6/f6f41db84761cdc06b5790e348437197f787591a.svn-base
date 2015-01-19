@@ -1,0 +1,47 @@
+package com.shinow.model;
+
+import java.sql.Timestamp;
+
+public class MsgInfo {
+
+	private int msgId;
+	
+	private int friendId;
+	
+	private String msgContent;
+	
+	private Timestamp msgTime;
+
+	public int getMsgId() {
+		return msgId;
+	}
+
+	public void setMsgId(int msgId) {
+		this.msgId = msgId;
+	}
+
+	public int getFriendId() {
+		return friendId;
+	}
+
+	public void setFriendId(int friendId) {
+		this.friendId = friendId;
+	}
+
+	public String getMsgContent() {
+		return msgContent;
+	}
+
+	public void setMsgContent(String msgContent) {
+		this.msgContent = msgContent;
+	}
+
+	public Timestamp getMsgTime() {
+		return msgTime;
+	}
+
+	public void setMsgTime(Timestamp msgTime) {
+		this.msgTime = msgTime;
+	}
+	
+}

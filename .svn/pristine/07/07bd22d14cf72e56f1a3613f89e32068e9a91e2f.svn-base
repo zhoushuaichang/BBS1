@@ -1,0 +1,34 @@
+package com.shinow.actions;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.opensymphony.xwork2.ActionSupport;
+import com.shinow.dao.PostpageDAO;
+@Service
+public class PostpageAction extends ActionSupport {
+
+	private static final long serialVersionUID = 1L;
+		@Resource
+		private PostpageDAO ptsg;
+		private int record_count=ptsg.getRecordCount();
+		
+
+	
+		
+		
+		private String action(){
+			return "success";
+		}
+		
+		
+		
+		
+		public int getRecord_count() {
+			return record_count;
+		}
+		public void setRecord_count(int record_count) {
+			this.record_count = record_count;
+		}
+}

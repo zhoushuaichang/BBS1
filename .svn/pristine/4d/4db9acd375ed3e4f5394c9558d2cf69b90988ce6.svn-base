@@ -1,0 +1,58 @@
+package com.shinow.dao;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowCallbackHandler;
+import org.springframework.stereotype.Service;
+
+import com.shinow.model.BlogLogInfo;
+
+@Service
+public class BlogLogInfoDAO {
+	@Resource
+	private JdbcTemplate jdbcTemplate;
+
+	// 根据userID的查询博客日志信息表的信息
+	public List<BlogLogInfo> queryByuserID(int userID) {
+		final List<BlogLogInfo> result = new
+
+		ArrayList<BlogLogInfo>();
+		jdbcTemplate.query("select * from blog_log_info  where userID=?",
+				new Object[] { userID }, new int[]{Types.INTEGER }, new
+
+				RowCallbackHandler() {
+					@Override
+					public void processRow(ResultSet rst)
+
+					throws SQLException {
+						BlogLogInfo one_info = new BlogLogInfo();
+						one_info.setUserID(rst.getInt("userID"));
+						one_info.setBlogId(rst.getInt("blogId"));
+						one_info.setLableId(rst.getInt("lableId"));
+						one_info.setBlogClassId(rst.getInt("blogClassId"));
+						one_info.setBlogLable(rst.getString("blogLable"));
+						one_info.setBlogMsg(rst.getString("blogMsg"));
+						one_info.setBlogTitle(rst.getString("blogTitle"));
+						one_info.setBlogTime(rst.getDate("blogTime"));
+						result.add(one_info);
+					}
+				});
+		return result;
+	}
+
+	// 插入博客日志信息表
+	public boolean insert(BlogLogInfo user) {
+		boolean result = false;
+		String sql = "insert into blog_log_info(blogTime,blogMsg,blogTitle,blogLable,blogId,lableId,userID,blogClassId) values(getdate(),?,?,?,?,?,?,?)";
+		int i = jdbcTemplate.update(sql,new Object[] { user.getBlogTime(), user.getBlogMsg(),user.getBlogTitle(), user.getBlogLable(),user.getBlogId(), user.getLableId(), user.getUserID(),user.getBlogClassId() }, new int[] { Types.DATE,Types.VARCHAR, Types.VARCHAR, Types.VARCHAR,Types.INTEGER, Types.INTEGER, Types.INTEGER,Types.INTEGER });
+		result = i > 0;
+		return result;
+	}
+}

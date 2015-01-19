@@ -1,0 +1,228 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
+	<%@taglib prefix="s" uri="/struts-tags" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>blog首页</title>
+<link href="style/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script>
+	$(function() {
+
+		//导航鼠标悬浮
+		$("#mainMenu a").mouseover(function() {
+			var $thisA = $(this);
+			$("#menuMasker").animate({
+				left : ($(this).offset().left - 258)
+			}, 500, function() {
+				$(".over").removeClass();
+				$thisA.addClass("over");
+			});
+		});
+
+		//导航向左滚动
+		$("#menuLeft").click(function() {
+			if ($("#menuMasker").position().left > 50) {
+				$("#menuMasker").animate({
+					left : ($("#menuMasker").position().left - 73)
+				}, 500, function() {
+					var $prevA = $(".over").parent().prev().find("a");
+					$(".over").removeClass();
+					$prevA.addClass("over");
+				});
+			}
+		});
+
+		//导航向右滚动
+		$("#menuRight").click(function() {
+			if ($("#menuMasker").position().left < 340) {
+				$("#menuMasker").animate({
+					left : ($("#menuMasker").position().left + 73)
+				}, 500, function() {
+					var $prevA = $(".over").parent().next().find("a");
+					$(".over").removeClass();
+					$prevA.addClass("over");
+				});
+			}
+		});
+
+		//搜索菜单
+		$sear = false;
+		$("#search").mouseover(function() {
+			if ($sear) {
+				$sear = false;
+				$("#searchSpan").slideUp(401);
+			} else {
+				$sear = true;
+				$("#searchSpan").slideDown(410);
+			}
+		});
+
+		//右侧菜单展开
+		$(".rightMenu").toggle(function() {
+			$(this).next().slideDown(500);
+			$(this).removeClass().addClass("rightMenu2");
+		}, function() {
+			$(this).next().slideUp(500);
+			$(this).removeClass().addClass("rightMenu");
+		});
+
+		//移除文章
+		$(".del").click(function() {
+			$(this).closest(".ListItem").fadeOut(800, function() {
+				$(this).closest(".ListItem").remove();
+			});
+		});
+	})
+	
+</script>
+</head>
+
+<body>
+	<div id="header">
+		<div id="headerTop">
+			<img src="images/logo.gif" alt="启奥实训" />
+			<div id="searchBox">
+				<div id="searchSpan">
+					<s:textfield name="" id=""></s:textfield><s:submit value="搜索" id="searchSub"></s:submit>
+				</div>
+				<img id="search" src="images/search.gif" alt="搜索" />
+			</div>
+		</div>
+		<div id="mainMenu">
+			<img id="menuLeft" src="images/menuLeft.gif" alt="左滑动" /> <img
+				id="menuRight" src="images/menuRight.gif" alt="右滑动" /> <img
+				id="menuMasker" src="images/menuBlock.gif" alt="蒙" />
+			<ul>
+				<li><s:a href="index.jsp" class="over">首 页</s:a></li>
+				<li><s:a href="blogList.jsp">日 志</s:a></li>
+				<li><s:a href="photo.jsp">相 册</s:a></li>
+				<li><s:a href="friends.jsp">博 友</s:a></li>
+				<li><s:a href="about.jsp">关 于</s:a></li>
+			</ul>
+		</div>
+	</div>
+				
+	<div id="left">
+		<div class="ListItem">
+			<s:iterator>
+			<div class="ListItemTop">
+			
+				<span>Posted by admin in <img src="images/ico2.gif"
+					alt="文章分类" /> <s:a href="#" class="sort">美工培训</s:a> on <img
+					src="images/ico3.gif" alt="发布时间" /> 04 13th, 2010 |
+				</span> <img src="images/x.gif" class="del" alt="关闭文章" />
+			</div>
+			<div class="ListItemContent">
+				<h1>
+					<s:a href="blogShow.jsp" target="_blank">Dreamweaver
+						CS4中使用CSS3属性提示</s:a>
+				</h1>
+				<div class="content">在使用Dreamweaver CS4
+					编写css的时候,是否有想使用下css3的新特性呢?是否还在为某一个css3特性而去翻google呢?
+					现在出了专门为Dreamweaver而做的扩展 Dreamweaver Style
+					Sheets,下载它是需要登录到adobe官方网站的,如果你嫌麻烦,我这里贡献下链接地址:点击这里,需要注意的一点是:下载下来的扩展是需要Dreamweaver的扩展管理器进行安装的,所以你的Dreamweaver必须得是安装版的才行.
+				</div>
+				<div class="foot">
+					<span class="tag">标签：<s:a href="#">CSS</s:a></span> <s:a
+						href="blogShow.jsp" target="_blank" class="more">Read More</s:a>
+			
+				</div>
+			</div>	
+			</s:iterator>
+			</div>
+		
+
+		<div class="pages">
+			<s:a href="#">首页</s:a> <s:a href="#">1</s:a> <s:a href="#">2</s:a> <s:a href="#">3</s:a>
+			<s:a href="#">4</s:a> <s:a href="#">5</s:a> <s:a href="#">末页</s:a>
+		</div>
+	</div>
+
+	<div id="right">
+		<div class="rightMenu">login</div>
+		<div class="rightNr">
+		<s:form id="myForm" method="post" action="login" namespace="/reg" theme="simple">
+				<p>
+					<label>登录名：</label><s:textfield name="user.userName" id="userZh" ></s:textfield>
+				</p>
+				<p>
+					<label>密 码：</label><s:textfield name="user.userPass" id="userPw" ></s:textfield>
+				</p>
+				<p>
+					<s:submit name="submit" id="submit" value="登录"></s:submit>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<s:submit name="reg" value="注册" onclick="window.location.href='Blogreg.jsp'"></s:submit>
+				</p>
+
+			</s:form>
+		</div>
+
+		<div class="rightMenu">about us</div>
+		<div class="rightNr">
+			唐山市启奥职业培训学校即唐山启奥IT实训基地，依托知名的专业化软件公司，致力于高端IT人才的培养。建筑面积2000多平方米，具有强大的师资队伍和教学管理团队以及设备精良的实训环境，是唐山市高校大学生就业见习基地。
+		</div>
+
+		<div class="rightMenu">articles Category</div>
+		<div class="rightNr">
+			<ul>
+				<s:iterator>
+				<li>
+					<p class="reTag">
+						<a href="#">DOTNET</a>
+					</p>
+				</li>
+				</s:iterator>
+			</ul>
+		</div>
+
+		<div class="rightMenu">random posts</div>
+		<div class="rightNr">
+			<ul>
+			<s:iterator>
+				<li>
+					<p class="reName">
+						<a href="#">css 3.0 中文手册API</a>
+					</p>
+				</li>
+			</s:iterator>
+			</ul>
+		</div>
+
+		<div class="rightMenu">recent comments</div>
+		<div class="rightNr">
+			<ul>
+				<s:iterator>
+				<li>
+					<p class="reName">
+						<s:a href="#">张三</s:a>
+					</p>
+					<p class="reNr">我来说点啥.</p>
+				</li>
+				</s:iterator>
+			</ul>
+		</div>
+
+		<strong class="rightListTitle">STUDENTS</strong>
+		<div class="rightList">
+			<ul>
+			<s:iterator>
+				<li><a href="#">张三</a> [唐山学院]</li>
+			</s:iterator>	
+			</ul>
+		</div>
+		<strong class="rightListTitle">ARCHIVE</strong>
+		<div class="rightList">
+			<ul>
+			<s:iterator>
+				<li><a href="#">2010.05</a> (5)</li>
+			</s:iterator>
+			</ul>
+		</div>
+	</div>
+
+	<div id="footer">&copy; Copyright 2010. All rights shinowIT.com</div>
+</body>
+</html>

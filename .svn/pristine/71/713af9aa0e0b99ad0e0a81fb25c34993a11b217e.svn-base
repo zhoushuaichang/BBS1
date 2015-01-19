@@ -1,0 +1,32 @@
+package com.shinow.dao;
+
+import java.sql.Types;
+
+import javax.annotation.Resource;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowCountCallbackHandler;
+import org.springframework.stereotype.Repository;
+
+import com.shinow.model.MsgInfo;
+
+@Repository
+public class ReplyMsgDAO {
+	@Resource
+	private JdbcTemplate jt;
+public  boolean insertMsg( MsgInfo msg){
+	boolean result=false;
+
+	int a=jt.update("insert into reply_info(friendId,replyMsg,replytTime)values(?,?,getdate())",new Object[]{msg.getFriendId(),msg.getMsgContent()},new int[]{Types.INTEGER,Types.VARCHAR});
+
+	if(a>0){
+		result =true;
+	}
+	return result;
+}
+ public MsgInfo select(){
+	 MsgInfo msg=null;
+	 jt.query("select reply_info*,friends.lastTime from reply_info",new RowCountCallbackHandler());
+	 return msg;
+ } 
+}

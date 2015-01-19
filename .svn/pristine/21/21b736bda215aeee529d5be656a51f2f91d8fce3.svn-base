@@ -1,0 +1,36 @@
+package com.shinow.test;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.shinow.dao.ReplyMsgDAO;
+import com.shinow.model.BlogLogInfo;
+import com.shinow.model.MsgInfo;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations={"classpath:application-context.xml"})
+public class Testreplylist1 extends AbstractJUnit4SpringContextTests{
+@Resource
+private ReplyMsgDAO dao;
+
+@Test
+public void test1(){
+	List<MsgInfo> list= dao.selectMsg();
+	for(MsgInfo a:list){
+		System.out.println(a.getMsgContent());
+		System.out.println(a.getRetime());
+	}
+	
+	
+	
+	
+}
+}
+

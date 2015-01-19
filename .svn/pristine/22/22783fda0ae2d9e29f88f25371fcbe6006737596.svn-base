@@ -1,0 +1,23 @@
+package com.shinow.actions;
+
+import com.opensymphony.xwork2.ActionSupport;
+import com.shinow.dao.PhotoInfoDAO;
+import com.shinow.model.PhotoInfo;
+
+public class PhotoInfoAction extends ActionSupport {
+    private PhotoInfo dao;
+    private PhotoInfoDAO pind;
+	private static final long serialVersionUID = 1L;
+	public String execute(){
+		dao=(PhotoInfo) (pind.querylist());
+		return SUCCESS;
+	}
+	public PhotoInfo getDao() {
+		return dao;
+	}
+	public void setDao(PhotoInfo dao) {
+		this.dao = dao;
+	}
+	
+	
+}

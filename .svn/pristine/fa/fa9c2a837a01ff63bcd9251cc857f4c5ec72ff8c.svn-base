@@ -1,0 +1,19 @@
+package com.shinow.actions;
+
+import javax.annotation.Resource;
+
+import com.shinow.dao.BlogLogInfoDAO;
+
+public class BlogLogInfoAction {
+    @Resource
+    private BlogLogInfoDAO dao;
+
+	public BlogLogInfoDAO getDao() {
+		return dao;
+	}
+	public String select(){
+		dao.queryByuserID(12);
+		return "success";
+	} 
+    
+}

@@ -1,0 +1,18 @@
+package com.shinow.model;
+
+public class blogClassInfo {
+	private int blogClassId;
+	private String blogClassName;
+	public int getBlogClassId() {
+		return blogClassId;
+	}
+	public void setBlogClassId(int blogClassId) {
+		this.blogClassId = blogClassId;
+	}
+	public String getBlogClassName() {
+		return blogClassName;
+	}
+	public void setBlogClassName(String blogClassName) {
+		this.blogClassName = blogClassName;
+	}
+}

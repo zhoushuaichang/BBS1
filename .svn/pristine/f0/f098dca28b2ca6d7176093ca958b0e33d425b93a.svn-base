@@ -1,0 +1,27 @@
+package com.shinow.dao;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import com.shinow.model.BlogLogInfo;
+
+@Repository
+public class PostpageDAO {
+	@Resource
+	private JdbcTemplate jt;
+	public List<BlogLogInfo> queryForPage(int pageSize,int pageIndex) {
+		String sql=" select top " +pageSize+ " blog_log_info.*,user_info.nickName,user_info.pic from blog_log_info inner join user_info on blog_log_info.userId=userinfo.userId where msgId not in ( " +
+		         " select top " +(pageIndex-1)*pageSize+ " msgId from blog_log_info order by blogTime desc " + 
+				" ) order by post_time desc";
+		jt.queryForInt(sql);
+		return null;
+	}
+	public int getRecordCount() {
+		int i=jt.queryForInt("select count(0) from blog_log_info",new Object[]{} ,new int[]{});
+		return i;
+	}
+}
